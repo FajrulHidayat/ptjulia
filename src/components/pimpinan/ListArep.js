@@ -3,7 +3,7 @@ import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import React from 'react';
 import axios from 'axios';
-import { useNavigate,useLocation,Link } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 
 
 class StatusLaporan extends React.Component {
@@ -151,30 +151,7 @@ componentDidMount(){
         ...this.getColumnSearchProps('email'),
         
       },
-      {
-        title: "Aksi",
-        dataIndex: "aksi",
-        key: "aksi",
-        render: (text, record) => (
-          <Link
-            to={{
-              pathname: `/operator/DetailArep?id=${record.key}`,
-              // search:`?id=${record.id_surat}`
-            }}
-          >
-            {/* {console.log(record)} */}
-            <Button
-              style={{
-                backgroundColor: "#FF4D4F",
-                color: "white",
-              }}
-            >
-              Lihat
-            </Button>
-          </Link>
-          // <Button onClick={() => UbahDom(`Permohonan/${record.id}/${this.state.route}`, this.props.history)}>Lihat</Button>
-        ),
-      },
+      
     ];
     return <Table columns={columns} dataSource={this.state.data} />;
   }

@@ -1,12 +1,12 @@
 import {Form,Upload,Button,Input,Typography} from "antd"
 import { UploadOutlined } from '@ant-design/icons';
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const {Title} = Typography
 
 export default function TambahLaporan(props){
-
+  const navigate = useNavigate()
     const location = useLocation();
     // console.log(location);
     const formItemLayout = {
@@ -25,12 +25,16 @@ export default function TambahLaporan(props){
           };
         const formdata = new FormData();
         formdata.append("id_arep",location.state.id_arep)
+        console.log(location.state.id_arep);
         formdata.append("judul",values.judul)
         formdata.append("file",values.file[0].originFileObj)
           axios
             .post(`/laporan/`, formdata,headers )
             .then((res) => {
               console.log(res);
+              if(res.status === 200){
+                navigate("../StatusLaporan",{state:{id_arep:location.state.id_arep}})
+              }
             })
             .catch((error) => {
               console.log(error.status);

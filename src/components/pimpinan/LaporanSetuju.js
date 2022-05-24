@@ -1,12 +1,14 @@
-import { Table, Input, Button, Space } from 'antd';
+import { Table, Input, Button, Space,Typography } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import React from 'react';
 import axios from 'axios';
 import { useNavigate,useLocation,Link } from "react-router-dom";
+import moment from "moment"
 
+const {Title} = Typography
 
-class StatusLaporan extends React.Component {
+class LaporanSetuju extends React.Component {
   state = {
     searchText: '',
     searchedColumn: '',
@@ -15,18 +17,19 @@ class StatusLaporan extends React.Component {
 
 componentDidMount(){
     let newData=[]
+    console.log(this.props.location.state.wilayah);
     axios
-    .get(`/arep`, null, {})
+    .get(`/laporan/find?status=Setuju`, null, {})
     .then((res) => {
     //   console.log(res.data);
       res.data.result.forEach(element => {
           const newDa ={}
           newDa.key=element.id
           newDa.nama=element.nama
-          newDa.nik=element.nik
-          newDa.ttl=`${element.tempat_lahir}/${element.tanggal_lahir}`
           newDa.wilayah=element.wilayah
-          newDa.email=element.email
+          newDa.createAt=moment(element.createAt).format("DD-MM-YYYY")
+          newDa.updateAt=moment(element.updateAt).format("DD-MM-YYYY")
+          newDa.status=element.status
 
             newData.push(newDa)
         });
@@ -118,37 +121,37 @@ componentDidMount(){
   render() {
     const columns = [
       {
-        title: 'Nama',
+        title: 'Nama Penanggung Jawab',
         dataIndex: 'nama',
         key: 'nama',
         width: '30%',
         ...this.getColumnSearchProps('nama'),
       },
       {
-        title: 'NIK',
-        dataIndex: 'nik',
-        key: 'nik',
-        width: '20%',
-        ...this.getColumnSearchProps('nik'),
-      },
-      {
-        title: 'Tempat/Tanggal Lahir',
-        dataIndex: 'ttl',
-        key: 'ttl',
-        ...this.getColumnSearchProps('ttl')
-      },
-      {
-        title: 'Wilayah Kerja',
+        title: 'Wilayah',
         dataIndex: 'wilayah',
         key: 'wilayah',
+        width: '20%',
         ...this.getColumnSearchProps('wilayah'),
+      },
+      {
+        title: 'Tanggal Di Unggah',
+        dataIndex: 'createAt',
+        key: 'createAt',
+        ...this.getColumnSearchProps('createAt')
+      },
+      {
+        title: 'Tanggal Di Perbaharui',
+        dataIndex: 'updateAt',
+        key: 'updateAt',
+        ...this.getColumnSearchProps('updateAt'),
         
       },
       {
-        title: 'Email',
-        dataIndex: 'email',
-        key: 'email',
-        ...this.getColumnSearchProps('email'),
+        title: 'Status',
+        dataIndex: 'status',
+        key: 'status',
+        ...this.getColumnSearchProps('status'),
         
       },
       {
@@ -157,12 +160,12 @@ componentDidMount(){
         key: "aksi",
         render: (text, record) => (
           <Link
+            target="_blank"
             to={{
-              pathname: `/operator/DetailArep?id=${record.key}`,
-              // search:`?id=${record.id_surat}`
+              pathname: `/PeriksaLaporan?id=${record.key}`,
             }}
           >
-            {/* {console.log(record)} */}
+            {console.log(record)}
             <Button
               style={{
                 backgroundColor: "#FF4D4F",
@@ -176,14 +179,20 @@ componentDidMount(){
         ),
       },
     ];
-    return <Table columns={columns} dataSource={this.state.data} />;
+    return (
+      <div>
+        <Title>Data Pelaporan</Title>
+        <Title level={3}>Laporan di Setujui</Title>
+        <Table columns={columns} dataSource={this.state.data} />
+      </div>
+    )
   }
 }
 
 function WithNavigate(props){
     let navigate = useNavigate();
     let location = useLocation()
-    return <StatusLaporan {...props} navigate={navigate} location={location}/>
+    return <LaporanSetuju {...props} navigate={navigate} location={location}/>
 }
 
 export default WithNavigate

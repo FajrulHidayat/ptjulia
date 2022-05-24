@@ -25,7 +25,10 @@ const tailLayout = {
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      error:false
+    };
+    this.onFinish=this.onFinish.bind(this)
   }
   async componentDidMount() {
     const token = localStorage.getItem("token");
@@ -53,23 +56,18 @@ class Login extends React.Component {
       console.log("tidak", token);
     }
   }
-  onFinish = (values) => {
-    console.log("Success:", values);
-    // // console.log('Success:', props);
+   async onFinish(values) {
     let headers = {
       headers: {
-        // "Content-Type": "application/json",
         email: values.email,
         password: values.password,
       },
-      // responseType: "json",
     };
-    // //   const { history } = this.props;
-
-    axios
+    let resp = await axios
       .post(`/auth/login`, null, headers)
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.status);
+        console.log(res.data);
         if (res.data.diagnostic.status === 200) {
           const result = res.data.result;
           localStorage.setItem("token", res.headers.authorization);
@@ -79,8 +77,16 @@ class Login extends React.Component {
         }
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
+        return error
+        // if (error.response.status === 401) {
+        //   this.setState({error:true})
+        // }
       });
+      if (resp.response.status === 401) {
+        this.setState({error:true})
+      }
+      console.log(resp.response);
   };
   toNavigate(role){
       this.props.navigate(`/${role}`)
@@ -88,11 +94,14 @@ class Login extends React.Component {
   toRegistration= ()=>{
       this.props.navigate(`/Registration`)
   }
-
+  onFail(){
+    console.log("gagal");
+  }
   onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
   render() {
+    // console.log(this.state.error);
     return (
       <div className="loginConteiner">
         <div className="login">
@@ -130,7 +139,7 @@ class Login extends React.Component {
             >
               <Input.Password />
             </Form.Item>
-
+              {this.state.error && <p style={{color:"red"}}>Email atau Password anda Salah</p>}
             <Form.Item {...tailLayout}>
               <Button type="primary" htmlType="submit">
                 Masuk

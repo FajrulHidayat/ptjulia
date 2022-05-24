@@ -19,7 +19,6 @@ componentDidMount(){
     axios
     .get(`/laporan/${this.props.location.state.id_arep}`, null, {})
     .then((res) => {
-    //   console.log(res.data);
       res.data.result.forEach(element => {
           const newDa ={}
           newDa.key=element.id
@@ -156,7 +155,11 @@ componentDidMount(){
                     color="#950303"
                     break;
                 }
-                case "Disetujui":{
+                case "Setuju":{
+                    color="#07B629"
+                    break;
+                }
+                case "Pajak":{
                     color="#07B629"
                     break;
                 }

@@ -3,7 +3,7 @@ import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import React from 'react';
 import axios from 'axios';
-import { useNavigate,useLocation,Link, useSearchParams } from "react-router-dom";
+import { useNavigate,useLocation,Link } from "react-router-dom";
 import moment from "moment"
 
 const {Title} = Typography
@@ -162,8 +162,7 @@ componentDidMount(){
           <Link
             target="_blank"
             to={{
-              pathname: `/laporan?id=${record.key}`,
-              // search:`?id=${record.id_surat}`
+              pathname: `/PeriksaLaporan?id=${record.key}`,
             }}
           >
             {console.log(record)}
@@ -192,9 +191,8 @@ componentDidMount(){
 
 function WithNavigate(props){
     let navigate = useNavigate();
-    let [searchParams, setSearchParams] = useSearchParams();
     let location = useLocation()
-    return <LaporanMasuk {...props} navigate={navigate} location={location} searchParams={searchParams}/>
+    return <LaporanMasuk {...props} navigate={navigate} location={location}/>
 }
 
 export default WithNavigate

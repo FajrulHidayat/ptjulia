@@ -1,4 +1,4 @@
-import { Form, Input } from 'antd';
+import { Form, Input,Button, Row, Col } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
@@ -22,7 +22,7 @@ export default function MyApp(props) {
       .then((res) => {
         // console.log(res.data.result[0].file);
         setfile(`http://localhost:9000/file/${res.data.result[0].file}`)
-        if (res.data.result[0].status === "Revisi") {
+        if (res.data.result[0].status === "Revisi" || res.data.result[0].status === "Baru") {
           setkomen(true)
         }
       })
@@ -36,19 +36,46 @@ export default function MyApp(props) {
     
   }, [searchParams])
 
+  const onFinish = (values) => {
+    console.log('Success:', values);
+    axios
+      .put(`/laporan/koreksi/${searchParams.get("id")}`, {koreksi:values.komen},{} )
+      .then((res) => {
+        console.log(res);
+        // console.log(res.data.result[0].file);
+        // setfile(`http://localhost:9000/file/${res.data.result[0].file}`)
+        // if (res.data.result[0].status === "Revisi" || res.data.result[0].status === "Baru") {
+        //   setkomen(true)
+        // }
+      })
+      .catch((error) => {
+        console.log(error.status);
+      });
+  };
       
   return (
     <div style={{width:"100%",height:"100vh"}}>
       
       <iframe title="pdf" src={file}  width={komen?"70%":"100%"} height="100%"></iframe>
       {komen && <div style={{width:"30%",height:"100%",float:"right"}}>
-        <Form>
+        <Form
+          style={{padding:"16px"}}
+          onFinish={onFinish}
+        >
           <Form.Item
           name={"komen"}
           style={{heigth:"80%"}}
           >
-            <Input.TextArea style={{heigth:"100%"}} autoSize={{minRows:25, maxRows:25}} readOnly/>
+            <Input.TextArea style={{heigth:"100%"}} autoSize={{minRows:25, maxRows:25}}/>
+            
           </Form.Item>
+          <Row style={{marginTop:"32px"}}>
+              <Col span={18} offset={6}>
+                <Button type='primary' danger>Kembali</Button>
+                <Button type='primary' style={{marginLeft:"16px"}} htmlType="submit">Koreksi</Button>
+                <Button type='primary' style={{marginLeft:"16px",background:"#07B629"}} onClick>ACC</Button>
+              </Col>
+            </Row>
         </Form>
       </div>}
       {/* <Document file="http://localhost:9000/file/file-1649065940077.pdf" onLoadSuccess={onDocumentLoadSuccess}>

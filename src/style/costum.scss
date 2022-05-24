@@ -203,6 +203,14 @@ header .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active::after{
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
+
+.ant-upload.ant-upload-select-picture-card{
+    background-color: transparent;
+    height: inherit;
+    width: inherit;
+    border: none;
+  }
+
 // .ant-table-cell{
 //   font-weight: bold;
 // }

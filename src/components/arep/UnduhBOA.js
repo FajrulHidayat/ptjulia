@@ -1,6 +1,16 @@
-import {Card,Row,Col,Typography} from 'antd'
+import {Card,Row,Col,Typography, Button} from 'antd'
+import { Link } from 'react-router-dom';
 const {Title} = Typography;
 export default function UnduhBOA(props){
+    const Unduh =()=>{
+        var text = "Template BOA";
+        var filename =   "/backcover.docx";
+        var element = document.createElement('a');
+                  element.setAttribute('href','data:text/plain;charset=utf-8, ' + encodeURIComponent(text));
+                  element.setAttribute('download', filename);
+                  document.body.appendChild(element);
+                  element.click();
+    }
     return(
         <div>
             <Title level={2}strong style={{marginBottom:0,marginTop:0,textAlign:"center"}}>Selamat Datang</Title>
@@ -31,6 +41,11 @@ export default function UnduhBOA(props){
                         </Card>
                     </Col>
                     {/* </Card.Grid> */}
+                </Row>
+                <Row style={{marginTop:"32px"}}>
+                    <Col span={2} offset={11}>
+                        <Link to="/backcover.docx" target="_blank" download>Unduh BOA</Link>
+                    </Col>
                 </Row>
             </Card>
         </div>
