@@ -162,7 +162,7 @@ componentDidMount(){
           <Link
             target="_blank"
             to={{
-              pathname: `/PeriksaLaporan?id=${record.key}`,
+              pathname: `/PimpinanPeriksaLaporan?id=${record.key}`,
             }}
           >
             {console.log(record)}

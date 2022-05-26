@@ -40,6 +40,7 @@ function App() {
         <Route exact path="/laporan" element={<components.Pdf/>}/>
         <Route exact path="/UnduhBOA" element={<components.UnduhBOA/>}/>
         <Route exact path="/PeriksaLaporan" element={<components.PdfOperator/>}/>
+        <Route exact path="/PimpinanPeriksaLaporan" element={<components.PdfOperator/>}/>
       </Routes>
     </Router>
   );
