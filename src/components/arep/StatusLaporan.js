@@ -14,10 +14,12 @@ class StatusLaporan extends React.Component {
     data:[]
   };
 
+   
 componentDidMount(){
+  console.log(this.props.location.state);
     let newData=[]
     axios
-    .get(`/laporan/${this.props.location.state.id_arep}`, null, {})
+    .get(`/laporan/${this.props.location.state.id}`, null, {})
     .then((res) => {
       res.data.result.forEach(element => {
           const newDa ={}

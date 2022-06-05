@@ -15,7 +15,7 @@ export default function TambahLaporan(props){
     };
 
     const onFinish = (values) => {
-        // console.log(location.state.id_arep);
+        console.log(location.state);
         console.log('Received values of form: ', values.file[0].originFileObj);
         let headers = {
             headers: {
@@ -24,7 +24,7 @@ export default function TambahLaporan(props){
             // responseType: "json",
           };
         const formdata = new FormData();
-        formdata.append("id_arep",location.state.id_arep)
+        formdata.append("id_arep",location.state.id)
         console.log(location.state.id_arep);
         formdata.append("judul",values.judul)
         formdata.append("file",values.file[0].originFileObj)
@@ -51,6 +51,7 @@ export default function TambahLaporan(props){
 
     return(
         <div>
+          {console.log(location.state)}
             <Title style={{color:"#0073AA"}}>Tambah Laporan</Title>
 
             <Form name="validate_other"

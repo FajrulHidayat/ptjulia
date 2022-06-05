@@ -100,7 +100,7 @@ export default function DashboardAdmin(props) {
           // console.log(akun.role.length);
           // if(e === )
           let to = e.key.slice(akun.role.length+2,e.length)
-          // console.log(akun);
+          console.log(akun);
           navigate(to,{state:akun});
           // switch (e.key) {
           //   case "/arep": {
