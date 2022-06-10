@@ -18,16 +18,16 @@ componentDidMount(){
     axios
     .get(`/arep`, null, {})
     .then((res) => {
-    //   console.log(res.data);
+      console.log(res.data);
       res.data.result.forEach(element => {
           const newDa ={}
-          newDa.key=element.id
+          newDa.key=element.id_user
           newDa.nama=element.nama
           newDa.nik=element.nik
           newDa.ttl=`${element.tempat_lahir}/${element.tanggal_lahir}`
           newDa.wilayah=element.wilayah
           newDa.email=element.email
-
+          // console.log(element);
             newData.push(newDa)
         });
         this.setState({data:newData})
@@ -162,7 +162,7 @@ componentDidMount(){
               // search:`?id=${record.id_surat}`
             }}
           >
-            {/* {console.log(record)} */}
+            {console.log(record)}
             <Button
               style={{
                 backgroundColor: "#FF4D4F",

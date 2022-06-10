@@ -28,13 +28,13 @@ export default function IndexLaporan(props){
     
       const getData = ()=>{
           axios.get("/laporan/opChart").then((res)=>{
-              console.log(res.data.result[0]);
+            //   console.log(res.data.result[0]);
               let dataResp = res.data.result[0]
               
             const values = Object.values(dataResp);
             const max = Math.max(...values)+(Math.max(...values)/2);
-              console.log(dataResp);
-              console.log(Math.max(...values));
+            //   console.log(dataResp);
+            //   console.log(Math.max(...values));
               const labels = ['Laporan Masuk', 'Laporan Dikoreksi', 'Laporan Disetujui', 'Total Penanggung Jawab'];
               setdataCharts([
                   {
@@ -94,33 +94,25 @@ export default function IndexLaporan(props){
 
     return(
         <div>
-            { console.log(ready)}
-            { console.log(dataCharts)}
+            {/* { console.log(ready)}
+            { console.log(dataCharts)} */}
             <div>
                 {ready&&(<Row>
-                    <Col span={6} style={{background:"#96DBDF"}}>
-                <Doughnut options={options} data={dataCharts[0]}/>
-                <br></br> 
-                <p style={{textAlign:'center'}}>{data.baru}</p>
-                <br></br>
+                    <Col span={6} style={{background:"#96DBDF",position:"relative",padding:"32px"}}>
+                <Doughnut options={options} data={dataCharts[0]}/> 
+                <p style={{textAlign:'center',position:"absolute",top:"58%",left:"48%"}}>{data.baru}</p>
                 </Col>
-                 <Col span={6}  style={{background:"#FB7C7C"}}>
+                 <Col span={6}  style={{background:"#FB7C7C",position:"relative",padding:"32px"}}>
                 <Doughnut data={dataCharts[1]}/>
-                <br></br> 
-                <p style={{textAlign:'center'}}>{data.koreksi}</p>
-                <br></br>
+                <p style={{textAlign:'center',position:"absolute",top:"58%",left:"48%"}}>{data.koreksi}</p>
                 </Col>
-                <Col span={6} style={{background:"#F3D8B3"}}>
-                <Doughnut data={dataCharts[2]}/>
-                <br></br> 
-                <p style={{textAlign:'center'}}>{data.setuju}</p>
-                <br></br>
+                <Col span={6} style={{background:"#F3D8B3",position:"relative",padding:"32px"}}>
+                <Doughnut data={dataCharts[2]}/> 
+                <p style={{textAlign:'center',position:"absolute",top:"58%",left:"48%"}}>{data.setuju}</p>
                 </Col>
-                <Col span={6}  style={{background:"#8DEDA0"}}>
-                <Doughnut data={dataCharts[3]}/>
-                <br></br> 
-                <p style={{textAlign:'center'}}>{data.arep}</p>
-                <br></br>
+                <Col span={6}  style={{background:"#8DEDA0",position:"relative",padding:"32px"}}>
+                <Doughnut data={dataCharts[3]}/> 
+                <p style={{textAlign:'center',position:"absolute",top:"58%",left:"48%"}}>{data.arep}</p>
                 </Col>
                 </Row>)}
             </div>

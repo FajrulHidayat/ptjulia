@@ -86,23 +86,17 @@ export default function IndexLaporan(props){
             { console.log(dataCharts)}
             <div>
                 {ready&&(<Row>
-                    <Col span={6} style={{background:"#96DBDF"}}>
-                <Doughnut options={options} data={dataCharts[0]}/>
-                <br></br> 
-                <p style={{textAlign:'center'}}>{data.setuju}</p>
-                <br></br>
+                    <Col span={6} style={{background:"#96DBDF",position:"relative",padding:"32px"}}>
+                <Doughnut options={options} data={dataCharts[0]}/> 
+                <p style={{textAlign:'center',position:"absolute",top:"58%",left:"48%"}}>{data.setuju}</p>
                 </Col>
-                 <Col offset={3} span={6}  style={{background:"#FDE7C9"}}>
-                <Doughnut data={dataCharts[1]}/>
-                <br></br> 
-                <p style={{textAlign:'center'}}>{data.pajak}</p>
-                <br></br>
+                 <Col offset={3} span={6}  style={{background:"#FDE7C9",position:"relative",padding:"32px"}}>
+                <Doughnut data={dataCharts[1]}/> 
+                <p style={{textAlign:'center',position:"absolute",top:"58%",left:"48%"}}>{data.pajak}</p>
                 </Col>
-                <Col offset={3} span={6}  style={{background:"#9AEEAB"}}>
-                <Doughnut data={dataCharts[2]}/>
-                <br></br> 
-                <p style={{textAlign:'center'}}>{data.arep}</p>
-                <br></br>
+                <Col offset={3} span={6}  style={{background:"#9AEEAB",position:"relative",padding:"32px"}}>
+                <Doughnut data={dataCharts[2]}/> 
+                <p style={{textAlign:'center',position:"absolute",top:"58%",left:"48%"}}>{data.arep}</p>
                 </Col>
                 </Row>)}
             </div>

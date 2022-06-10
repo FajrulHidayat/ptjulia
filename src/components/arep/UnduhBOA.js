@@ -44,7 +44,7 @@ export default function UnduhBOA(props){
                 </Row>
                 <Row style={{marginTop:"32px"}}>
                     <Col span={2} offset={11}>
-                        <Link to="/backcover.docx" target="_blank" download>Unduh BOA</Link>
+                        <Link to="/backcover.docx" target="_blank" download>Unduh BAO</Link>
                     </Col>
                 </Row>
             </Card>

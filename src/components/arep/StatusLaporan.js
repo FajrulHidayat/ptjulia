@@ -11,17 +11,23 @@ class StatusLaporan extends React.Component {
   state = {
     searchText: '',
     searchedColumn: '',
+    addable:true,
     data:[]
   };
 
    
 componentDidMount(){
-  console.log(this.props.location.state);
+  console.log(this.props.location.state.id_arep);
     let newData=[]
     axios
-    .get(`/laporan/${this.props.location.state.id}`, null, {})
+    .get(`/laporan/laporan/${this.props.location.state.id_arep}`, null, {})
     .then((res) => {
       res.data.result.forEach(element => {
+        console.log(element.status);
+        if(element.status==="Baru" || element.status==="Revisi" ){
+            this.setState({addable:false})
+        }
+        // if(element.status!=="Setuju" && element.status!=="Pajak"){
           const newDa ={}
           newDa.key=element.id
           newDa.upload=FormatDate(element.createdAt)
@@ -31,6 +37,7 @@ componentDidMount(){
           newDa.status=element.status
 
             newData.push(newDa)
+        // }
         });
         this.setState({data:newData})
     })
@@ -206,7 +213,13 @@ componentDidMount(){
         ),
       },
     ];
-    return <Table columns={columns} dataSource={this.state.data} />;
+    return (
+      <>
+      {console.log(this.props.location.state)}
+        {this.state.addable?<Button type='primary' onClick={()=>this.props.navigate("/arep/TambahLaporan",{state:this.props.location.state})}>Tambah</Button>:<></>}
+        <Table columns={columns} dataSource={this.state.data} />
+      </>
+    );
   }
 }
 

@@ -3,7 +3,8 @@ import {
   Form,
   Input,
   Button,
-  DatePicker
+  DatePicker,
+  Select
   //  Checkbox
 } from "antd";
 import axios from "axios";
@@ -11,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment"
 // import UbahDom from "../utils/UbahDom";
 // import Verify from '../utils/Verify'
+const { Option } = Select;
 const layout = {
   labelCol: {
     span: 8,
@@ -215,7 +217,13 @@ class Registrasi extends React.Component {
                 },
               ]}
             >
-              <Input />
+               <Select placeholder="Pilih Wilayah">
+                <Option value="Gowa">Gowa</Option>
+                <Option value="Makassar">Makassar</Option>
+                <Option value="Barru">Barru</Option>
+                <Option value="Pangkep">Pangkep</Option>
+                <Option value="Maros">Maros</Option>
+              </Select>
             </Form.Item>
             
 

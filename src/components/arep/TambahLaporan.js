@@ -24,7 +24,7 @@ export default function TambahLaporan(props){
             // responseType: "json",
           };
         const formdata = new FormData();
-        formdata.append("id_arep",location.state.id)
+        formdata.append("id_arep",location.state.id_arep)
         console.log(location.state.id_arep);
         formdata.append("judul",values.judul)
         formdata.append("file",values.file[0].originFileObj)

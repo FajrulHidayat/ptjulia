@@ -42,19 +42,21 @@ export default function DashboardAdmin(props) {
                 result.foto = "blankProfile.png"
               }
               if(result[0].role === "arep"){
-                // console.log(result[0].id);
+                // console.log(result[0]);
                 axios
                   .get(`/arep/arep/${result[0].id}`, null, headers)
                   .then((respo) => { 
-                    // console.log(respo.data.result[0][0]); 
-                    result[0].id_arep = respo.data.result[0][0].id
-                    
+                    // console.log(respo.data.result[0].id); 
+                    result[0].id_arep = respo.data.result[0].id
+                    setakun(result[0]);
                   })
                   .catch((error) => {
                     console.log(error);
                   });
+              }else{
+                setakun(result[0]);
               }
-              setakun(result[0]);
+              
             })
             .catch((error) => {
               console.log(error.status);
@@ -151,8 +153,9 @@ export default function DashboardAdmin(props) {
               </div>
               <Title level={4} style={collapsed?{display:'none'}:{color:"#ffffff",textAlign:"center"}}>{akun.nama}</Title>
               <Menu theme="dark" defaultSelectedKeys={[]} selectedKeys={[location.pathname]} mode="inline" onClick={handleClick} >
+                  {console.log(akun)}
                   {akun.role === "arep" ?(
-                    <><Menu.Item key="/arep" icon={<TeamOutlined />}>Unduh BOA</Menu.Item><SubMenu key="sub2" icon={<TeamOutlined />} title="Kelola Laporan">
+                    <><Menu.Item key="/arep" icon={<TeamOutlined />}>Unduh BAO</Menu.Item><SubMenu key="sub2" icon={<TeamOutlined />} title="Kelola Laporan">
                     <Menu.Item key="/arep/TambahLaporan">Tambah Laporan</Menu.Item>
                     <Menu.Item key="/arep/StatusLaporan">Status Laporan</Menu.Item>
                   </SubMenu></>
@@ -171,8 +174,8 @@ export default function DashboardAdmin(props) {
                   ):akun.role === "pimpinan"?(
                     <>
                     <Menu.Item key="/pimpinan/PenanggungJawab">Data Penanggung Jawab</Menu.Item>
-                    <Menu.Item key="/pimpinan/LaporanSetuju">Laporan di Setujui</Menu.Item>
-                    <Menu.Item key="/pimpinan/LaporanPajak">Laporan Berpajak</Menu.Item>
+                    <Menu.Item key="/pimpinan/LaporanSetuju">Data Laporan</Menu.Item>
+                    <Menu.Item key="/pimpinan/LaporanPajak">Data Validasi Faktur Pajak</Menu.Item>
                   </>
                   ):(<></>)}
                   

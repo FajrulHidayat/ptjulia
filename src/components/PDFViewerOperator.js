@@ -182,7 +182,7 @@ export default function MyApp(props) {
             <p>Apakah Anda yakin ingin meng-ACC Laporan ini?</p>
           </Modal>
           <Modal
-            title="Fraktur Pajak"
+            title="Validasi Faktur Pajak"
             visible={IsModalPajakVisible}
             onOk={handleOkPajak}
             onCancel={handleCancelPajak}
@@ -190,7 +190,7 @@ export default function MyApp(props) {
             okText="Ya"
           >
             {/* {komen = document.getElementById("textarea").value;console.log(document.getElementById("textarea").value)} */}
-            <p>Apakah Anda yakin ingin meng-ACC Laporan ini?</p>
+            <p>Apakah Anda Yakin Melakukan Validasi Pajak?</p>
           </Modal>
     </div>
   );

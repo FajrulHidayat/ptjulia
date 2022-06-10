@@ -21,7 +21,7 @@ componentDidMount(){
     axios
     .get(`/laporan/find?wilayah=${this.props.location.state.wilayah}`, null, {})
     .then((res) => {
-    //   console.log(res.data);
+      console.log(res.data);
       res.data.result.forEach(element => {
           const newDa ={}
           newDa.key=element.id
@@ -162,7 +162,7 @@ componentDidMount(){
           <Link
             target="_blank"
             to={{
-              pathname: `/laporan?id=${record.key}`,
+              pathname: `/PeriksaLaporan?id=${record.key}`,
               // search:`?id=${record.id_surat}`
             }}
           >
