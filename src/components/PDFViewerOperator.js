@@ -149,7 +149,7 @@ export default function MyApp(props) {
         </Form>
       </div>}
       {/* {console.log(location.pathname)} */}
-      {(location.pathname === `/PimpinanPeriksaLaporan`)?<Button style={{position:'fixed',bottom:"64px",right:"64px",background:"#96DBDF"}} onClick={onPajak}>Validasi Pajak</Button>:<></> }
+      {(location.pathname === `/PimpinanPeriksaLaporan`)?<Button style={{position:'fixed',bottom:"64px",right:"64px",background:"#96DBDF"}} onClick={onPajak}>Validasi Permohonan Faktur Pajak</Button>:<></> }
       {/* <Document file="http://localhost:9000/file/file-1649065940077.pdf" onLoadSuccess={onDocumentLoadSuccess}>
         <Page pageNumber={1} />
       </Document>
