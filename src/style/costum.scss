@@ -142,6 +142,7 @@ aside {
     padding-top: 32px;
     width: 600px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     #basic {
@@ -250,3 +251,77 @@ header .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active::after{
 // label{
 //   font-weight: bold;
 // }
+
+// ==================================================================
+.container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  animation-name: fadeIn;
+  animation-duration: 0.8s;
+
+
+
+  .left-content-wrapper {
+    width: 35vw;
+    padding: 2rem;
+    overflow-y: scroll;
+
+    .left-content {
+  
+      &-title {
+        margin: 0;
+        margin-bottom: 5px;
+      }
+  
+      &-description {
+        color: #949494;
+      }
+      
+      div {
+        // padding: 0 1rem 0 1rem ;
+      }
+    }
+  }
+  .right-content {
+    width: 65vw;
+    height: 100vh;
+    background: red;
+    background-image: url('../style/img-content-right.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+
+    
+    // &::after {
+    //   content: '';
+    //   position: absolute;
+    //   top: 0px;
+    //   right: 0px;
+    //   bottom: 0px;
+    //   left: 0px;
+    //   background-color: rgba(0, 0, 0, 0.384);
+    // }
+
+    // div {
+    //   .right-content-title {
+    //     color: white;
+    //     z-index: 99;
+    //   }
+  
+    //   .right-content-description {
+    //     color: white;
+    //     z-index: 99;
+    //   }
+
+    // }
+
+  }
+  
+}
+
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}

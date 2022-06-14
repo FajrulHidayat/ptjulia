@@ -3,10 +3,13 @@ import {
   Form,
   Input,
   Button,
+  Typography,
+  Image, Row, Col, 
   //  Checkbox
 } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+const {Title, Text, Link} = Typography;
 const layout = {
   labelCol: {
     span: 8,
@@ -103,52 +106,103 @@ class Login extends React.Component {
   render() {
     // console.log(this.state.error);
     return (
-      <div className="loginConteiner">
-        <div className="login">
-          <Form
-            {...layout}
-            name="basic"
-            initialValues={{
-              remember: true,
-            }}
-            onFinish={this.onFinish}
-            onFinishFailed={this.onFinishFailed}
-          >
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: "Email Harus Di Isi",
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
+      <div className="container">
+        <div className="left-content-wrapper">
+        <div>
+          <img src="https://julia.dev.smarteksistem.com/wp-content/uploads/2021/11/Group-208-3.png" alt="logo.png" style={{width: '200px', marginBottom: 20}} />
 
-            <Form.Item
-              label="Password"
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  message: "Password Harus Di Isi",
-                },
-              ]}
-            >
-              <Input.Password />
-            </Form.Item>
-              {this.state.error && <p style={{color:"red"}}>Email atau Password anda Salah</p>}
-            <Form.Item {...tailLayout}>
-              <Button type="primary" htmlType="submit">
-                Masuk
-              </Button>
-              <Button type="link" onClick={this.toRegistration}  >
-                Daftar
-              </Button>
-            </Form.Item>
-          </Form>
+          <Title level={3} style={{color:"#1B6C46", margin: '0', marginBottom: '8px'}}>PT. Julia Multimedia Nusantara</Title>
+          <Text level={5} style={{color:"#949494", margin: '0'}}>Website Pelaporan Tagihan Pelanggan</Text>
+        </div>
+        <div style={{marginTop: '80px'}} />
+        <div className="left-content" >
+          <Row>    
+            <Col span={24}>
+              <Title level={3} className="left-content-title"  >Login</Title>
+              <Text className="left-content-description" >Masukkan Email dan Kata Sandi</Text>
+              <div style={{marginBottom: '1.5rem'}} />
+              <Form
+                labelCol={{ span: 5 }}
+                wrapperCol={{ span: 18 }}
+                name="basic"
+                initialValues={{
+                  remember: true,
+                }}
+                onFinish={this.onFinish}
+                onFinishFailed={this.onFinishFailed}
+              >
+                <Form.Item
+                  label="Email"
+                  name="email"
+                
+                  rules={[
+                    {
+                      required: true,
+                      message: "Email Harus Di Isi",
+                    },
+                  ]}
+                >
+                  <Input   size="large"
+                  placeholder="Masukkan Email" />
+                </Form.Item>
+
+                <Form.Item
+                  label="Kata Sandi"
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Password Harus Di Isi",
+                    },
+                  ]}
+                >
+                  <Input.Password size="large" placeholder="Masukkan Kata Sandi" />
+                </Form.Item>
+                  {this.state.error && <p style={{color:"red"}}>Email atau Password anda Salah</p>}
+
+                <Form.Item
+                  label="&nbsp;"
+                  name=""
+                  colon={false}
+                  style={{marginBottom: '5px'}}
+                >
+                    <Button type="primary" htmlType="submit" style={{width: '100%'}} size="large" >
+                    Masuk
+                  </Button>
+                </Form.Item>
+
+                <Form.Item
+                  label="&nbsp;"
+                  name=""
+                  colon={false}
+                >
+                  <div style={{display: 'flex', justifyContent: 'center'}}>
+                    Belum Punya Akun ?&nbsp;
+                    <Text onClick={this.toRegistration} style={{color: 'blue', cursor: 'pointer'}}  >
+                      Daftar
+                    </Text>
+                  </div>
+                </Form.Item>
+
+
+                {/* <Form.Item {...tailLayout}>
+                  <Button type="primary" htmlType="submit">
+                    Masuk
+                  </Button>
+                  <Button type="link" onClick={this.toRegistration}  >
+                    Daftar
+                  </Button>
+                </Form.Item> */}
+              </Form>
+            </Col>
+          </Row>
+        
+        </div>
+
+        </div>
+       
+        <div className="right-content">
+        
         </div>
       </div>
     );

@@ -181,7 +181,7 @@ componentDidMount(){
     ];
     return (
       <div>
-        <Title>Data Validasi Fraktur Pajak</Title>
+        <Title>Data Validasi Faktur Pajak</Title>
         {/* <Title level={3}>Laporan di Setujui</Title> */}
         <Table columns={columns} dataSource={this.state.data} />
       </div>
