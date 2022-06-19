@@ -204,6 +204,7 @@ class Login extends React.Component {
         <div className="right-content">
         
         </div>
+        {/* <iframe title="pdf" src={"https://stardevseafinance.blob.core.windows.net/resources/generated/generated_175d4060-9580-46a1-ab34-0169589d0106.pdf?skoid=5a2377dc-1196-4e2c-b5a2-e30816441210&sktid=ca06aaa2-e01f-4e0c-9567-f2256f398023&skt=2022-06-15T06%3A50%3A11Z&ske=2022-06-16T06%3A51%3A11Z&sks=b&skv=2020-10-02&sv=2020-08-04&st=2022-06-15T09%3A36%3A19Z&se=2022-06-15T09%3A51%3A20Z&sr=b&sp=r&sig=IztY%2Bcxqn3m6xUJMxgoGoo5U2EM5sPH2joOdwxZmqmE%3D"}  width={"100%"} height="100%"></iframe> */}
       </div>
     );
   }
