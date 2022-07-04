@@ -1,54 +1,62 @@
-import { Table, Input, Button, Space } from 'antd';
-import Highlighter from 'react-highlight-words';
-import { SearchOutlined } from '@ant-design/icons';
-import React from 'react';
-import axios from 'axios';
-import { useNavigate,useLocation,Link } from "react-router-dom";
-
+import { Table, Input, Button, Space } from "antd";
+import Highlighter from "react-highlight-words";
+import { SearchOutlined } from "@ant-design/icons";
+import React from "react";
+import axios from "axios";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 class StatusLaporan extends React.Component {
   state = {
-    searchText: '',
-    searchedColumn: '',
-    data:[]
+    searchText: "",
+    searchedColumn: "",
+    data: [],
   };
 
-componentDidMount(){
-    let newData=[]
+  componentDidMount() {
+    let newData = [];
     axios
-    .get(`/arep`, null, {})
-    .then((res) => {
-      console.log(res.data);
-      res.data.result.forEach(element => {
-          const newDa ={}
-          newDa.key=element.id_user
-          newDa.nama=element.nama
-          newDa.nik=element.nik
-          newDa.ttl=`${element.tempat_lahir}/${element.tanggal_lahir}`
-          newDa.wilayah=element.wilayah
-          newDa.email=element.email
+      .get(`/arep`, null, {})
+      .then((res) => {
+        console.log(res.data);
+        res.data.result.forEach((element) => {
+          const newDa = {};
+          newDa.key = element.id_user;
+          newDa.nama = element.nama;
+          // newDa.nik=element.nik
+          newDa.ttl = `${element.tempat_lahir}/${element.tanggal_lahir}`;
+          newDa.wilayah = element.wilayah;
+          newDa.email = element.email;
           // console.log(element);
-            newData.push(newDa)
+          newData.push(newDa);
         });
-        this.setState({data:newData})
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
+        this.setState({ data: newData });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
-  getColumnSearchProps = dataIndex => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+  getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
       <div style={{ padding: 8 }}>
         <Input
-          ref={node => {
+          ref={(node) => {
             this.searchInput = node;
           }}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
-          onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-          onPressEnter={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{ marginBottom: 8, display: 'block' }}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() =>
+            this.handleSearch(selectedKeys, confirm, dataIndex)
+          }
+          style={{ marginBottom: 8, display: "block" }}
         />
         <Space>
           <Button
@@ -60,7 +68,11 @@ componentDidMount(){
           >
             Search
           </Button>
-          <Button onClick={() => this.handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+          <Button
+            onClick={() => this.handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
             Reset
           </Button>
           <Button
@@ -79,23 +91,28 @@ componentDidMount(){
         </Space>
       </div>
     ),
-    filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+    filterIcon: (filtered) => (
+      <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+    ),
     onFilter: (value, record) =>
       record[dataIndex]
-        ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
-        : '',
-    onFilterDropdownVisibleChange: visible => {
+        ? record[dataIndex]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
+        : "",
+    onFilterDropdownVisibleChange: (visible) => {
       if (visible) {
         setTimeout(() => this.searchInput.select(), 100);
       }
     },
-    render: text =>
+    render: (text) =>
       this.state.searchedColumn === dataIndex ? (
         <Highlighter
-          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
           searchWords={[this.state.searchText]}
           autoEscape
-          textToHighlight={text ? text.toString() : ''}
+          textToHighlight={text ? text.toString() : ""}
         />
       ) : (
         text
@@ -110,46 +127,44 @@ componentDidMount(){
     });
   };
 
-  handleReset = clearFilters => {
+  handleReset = (clearFilters) => {
     clearFilters();
-    this.setState({ searchText: '' });
+    this.setState({ searchText: "" });
   };
 
   render() {
     const columns = [
       {
-        title: 'Nama',
-        dataIndex: 'nama',
-        key: 'nama',
-        width: '30%',
-        ...this.getColumnSearchProps('nama'),
+        title: "Nama",
+        dataIndex: "nama",
+        key: "nama",
+        width: "30%",
+        ...this.getColumnSearchProps("nama"),
+      },
+      // {
+      //   title: 'NIK',
+      //   dataIndex: 'nik',
+      //   key: 'nik',
+      //   width: '20%',
+      //   ...this.getColumnSearchProps('nik'),
+      // },
+      {
+        title: "Tempat/Tanggal Lahir",
+        dataIndex: "ttl",
+        key: "ttl",
+        ...this.getColumnSearchProps("ttl"),
       },
       {
-        title: 'NIK',
-        dataIndex: 'nik',
-        key: 'nik',
-        width: '20%',
-        ...this.getColumnSearchProps('nik'),
+        title: "Wilayah Kerja",
+        dataIndex: "wilayah",
+        key: "wilayah",
+        ...this.getColumnSearchProps("wilayah"),
       },
       {
-        title: 'Tempat/Tanggal Lahir',
-        dataIndex: 'ttl',
-        key: 'ttl',
-        ...this.getColumnSearchProps('ttl')
-      },
-      {
-        title: 'Wilayah Kerja',
-        dataIndex: 'wilayah',
-        key: 'wilayah',
-        ...this.getColumnSearchProps('wilayah'),
-        
-      },
-      {
-        title: 'Email',
-        dataIndex: 'email',
-        key: 'email',
-        ...this.getColumnSearchProps('email'),
-        
+        title: "Email",
+        dataIndex: "email",
+        key: "email",
+        ...this.getColumnSearchProps("email"),
       },
       {
         title: "Aksi",
@@ -180,10 +195,10 @@ componentDidMount(){
   }
 }
 
-function WithNavigate(props){
-    let navigate = useNavigate();
-    let location = useLocation()
-    return <StatusLaporan {...props} navigate={navigate} location={location}/>
+function WithNavigate(props) {
+  let navigate = useNavigate();
+  let location = useLocation();
+  return <StatusLaporan {...props} navigate={navigate} location={location} />;
 }
 
-export default WithNavigate
+export default WithNavigate;
