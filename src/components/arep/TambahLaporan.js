@@ -59,7 +59,7 @@ export default function TambahLaporan(props){
             onFinish={onFinish}
             >
                 <Form.Item 
-                    label="Judul"
+                    label="judul"
                     name="judul"
                     rules={[{ required: true, message: 'Masukkan Judul Laporan!' }]}
                 >

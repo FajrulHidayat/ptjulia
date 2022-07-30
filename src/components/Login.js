@@ -110,9 +110,8 @@ class Login extends React.Component {
         <div className="left-content-wrapper">
         <div>
           <img src="https://julia.dev.smarteksistem.com/wp-content/uploads/2021/11/Group-208-3.png" alt="logo.png" style={{width: '200px', marginBottom: 20}} />
-
           <Title level={3} style={{color:"#1B6C46", margin: '0', marginBottom: '8px'}}>PT. Julia Multimedia Nusantara</Title>
-          <Text level={5} style={{color:"#949494", margin: '0'}}>Website Pelaporan Tagihan Pelanggan</Text>
+          <Text level={5} style={{color:"#949494", margin: '0'}}>Website Pelaporan Administrasi Tagihan Pelanggan</Text>
         </div>
         <div style={{marginTop: '80px'}} />
         <div className="left-content" >
