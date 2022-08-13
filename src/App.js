@@ -9,6 +9,7 @@ import {operator} from './components/operator'
 import {pimpinan} from './components/pimpinan'
 
 function App() {
+  
   return (
     <Router>
       <Routes>

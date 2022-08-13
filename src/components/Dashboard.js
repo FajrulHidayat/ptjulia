@@ -1,13 +1,26 @@
-import { Layout, Menu, Typography, Avatar, Image, Upload } from "antd";
+import {
+  Layout,
+  Menu,
+  Typography,
+  Avatar,
+  Image,
+  Upload,
+  notification,
+} from "antd";
 import { useEffect, useState } from "react";
 import { TeamOutlined } from "@ant-design/icons";
 // import logo from '../logo.svg';
 import { Outlet } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import firebase from "../firebase";
+import { getMessaging, getToken } from "firebase/messaging";
+import { onMessageListener } from "../firebase";
+import Notifications from "../utils/Notification/Notification";
 const { SubMenu } = Menu;
 const { Header, Footer, Sider, Content } = Layout;
 const { Title } = Typography;
+// const { messaging } = firebase;
 
 export default function DashboardAdmin(props) {
   const navigate = useNavigate();
@@ -17,6 +30,49 @@ export default function DashboardAdmin(props) {
   const location = useLocation();
   useEffect(() => {
     const token = localStorage.getItem("token");
+
+    // Add the public key generated from the console here.
+    // const messaging = getMessaging(firebase);
+    // onMessageListener()
+    //   .then((payload) => {
+    //     const args = {
+    //       message: payload.notification.title,
+    //       description: payload.notification.body,
+    //       duration: 0,
+    //     };
+    //     notification.open(args);
+    //     console.log(payload);
+    //   })
+    //   .catch((err) => console.log("failed: ", err));
+    // Notification.requestPermission()
+    //   .then(() => {
+    //     // console.log(messaging.getToken());
+    //     return getToken(messaging).then((data) => {
+    //       console.log(data);
+    //     });
+    //   })
+    //   .then((data) => {
+    //     console.log("token", data);
+    //   });
+    // getToken(messaging, {
+    //   vapidKey:
+    //     "BKMCXdXA2-5-BAAx0bEOtiinGw2oBxiCheDERkXN11ZcEfcT1U_SK49txN-gx3H9fS9jjtRAVdSLIjdpGL5OJ8o",
+    // })
+    //   .then((currentToken) => {
+    //     if (currentToken) {
+    //       console.log(currentToken);
+    //     } else {
+    //       // Show permission request UI
+    //       console.log(
+    //         "No registration token available. Request permission to generate one."
+    //       );
+    //       // ...
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log("An error occurred while retrieving token. ", err);
+    //     // ...
+    //   });
     // console.log(token);
     let headers = {
       headers: {
@@ -49,7 +105,7 @@ export default function DashboardAdmin(props) {
               default:
                 break;
             }
-            console.log(result);
+            // console.log(result);
             if (result[0].role === "arep") {
               // console.log(result[0]);
               axios
@@ -76,54 +132,14 @@ export default function DashboardAdmin(props) {
   }, [navigate, refresh]);
   // const { collapsed } = this.state;
   const logout = () => {
-    // const token = localStorage.getItem("token")
-    // let headers = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Authorization": token,
-    //   },
-    //   responseType: "json"
-    // };
-    // axios
-    //   .post(`/auth/logout`, null, headers)
-    //   .then(res => {
-
-    //    console.log(res);
-
-    //   })
-    //   .catch((error)=> {
-
-    //   console.log(error.status);
-    //   });
     localStorage.removeItem("token");
     localStorage.removeItem("level");
     navigate("/");
-    // UbahDom(`/`,props.history)
   };
   const handleClick = (e) => {
-    // console.log("e",e)
-    // console.log("this",akun.role)
-    // let role = akun.role
-    // console.log(akun.role.length);
-    // if(e === )
     let to = e.key.slice(akun.role.length + 2, e.length);
     console.log(akun);
     navigate(to, { state: akun });
-    // switch (e.key) {
-    //   case "/arep": {
-    //     navigate("");
-    //     return;
-    //   }
-    //   case "/arep/TambahLaporan": {
-    //     navigate("TambahLaporan",{state:akun});
-    //     return;
-    //   }
-
-    //   default:{
-    //     navigate("/");
-    //     return "foo";
-    //   }
-    // }
   };
   const PPChange = (values) => {
     // console.log(akun);
@@ -138,8 +154,22 @@ export default function DashboardAdmin(props) {
       navigate(location.pathname);
     });
   };
+  // onMessageListener()
+  //   .then((payload) => {
+  //     const args = {
+  //       message: payload.notification.title,
+  //       description: payload.notification.body,
+  //       duration: 0,
+  //     };
+  //     notification.open(args);
+  //     console.log(payload);
+  //   })
+  //   .catch((err) => console.log("failed: ", err));
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
+      {console.log(akun)}
+      <Notifications data={akun.id} />
       <Sider
         collapsible
         collapsed={collapsed}
@@ -201,7 +231,7 @@ export default function DashboardAdmin(props) {
           mode="inline"
           onClick={handleClick}
         >
-          {console.log(akun)}
+          {/* {console.log(akun)} */}
           {akun.role === "arep" ? (
             <>
               <Menu.Item key="/arep" icon={<TeamOutlined />}>
