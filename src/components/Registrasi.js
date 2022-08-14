@@ -262,6 +262,19 @@ class Registrasi extends React.Component {
                       <Option value="Barru">Barru</Option>
                       <Option value="Pangkep">Pangkep</Option>
                       <Option value="Maros">Maros</Option>
+                      <Option value="Palu">Palu</Option>
+                      <Option value="Manado">Manado</Option>
+                      <Option value="Sinjai">Sinjai</Option>
+                      <Option value="Pinrang">Pinrang</Option>
+                      <Option value="Bulukumba">Bulukumba</Option>
+                      <Option value="Tanete">Tanete</Option>
+                      <Option value="Sidrap">Sidrap</Option>
+                      <Option value="Jeneponto">Jeneponto</Option>
+                      <Option value="Pare-Pare">Pare-Pare</Option>
+                      <Option value="Kendari">Kendari</Option>
+
+
+
                     </Select>
                   </Form.Item>
 

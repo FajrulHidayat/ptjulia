@@ -181,7 +181,7 @@ componentDidMount(){
     ];
     return (
       <div>
-        <Title>Data Pelaporan</Title>
+        <Title>Data Pelaporan </Title>
         <Title level={3}>Laporan Masuk</Title>
         <Table columns={columns} dataSource={this.state.data} />
       </div>

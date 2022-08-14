@@ -86,6 +86,20 @@ export default function IndexLaporan(props) {
       {console.log(ready)}
       {console.log(dataCharts)}
       <div>
+        <Title
+          level={3}
+          style={{ marginBottom: 0, marginTop: 0, textAlign: "center" }}
+        >
+          Sistem Administrasi Pelaporan Tagihan Pelanggan
+        </Title>
+        <Title
+          level={2}
+          strong
+          style={{ marginBottom: 0, marginTop: 0, textAlign: "center" }}
+        >
+          PT. Julia Multimedia Nusantara
+        </Title>
+
         {ready && (
           <Row>
             <Col
@@ -108,7 +122,6 @@ export default function IndexLaporan(props) {
                 {data.setuju}
               </p>
             </Col>
-
             <Col
               offset={3}
               span={6}
@@ -130,7 +143,6 @@ export default function IndexLaporan(props) {
                 {data.pajak}
               </p>
             </Col>
-
             <Col
               offset={3}
               span={6}
@@ -155,32 +167,6 @@ export default function IndexLaporan(props) {
           </Row>
         )}
       </div>
-      <Title
-        level={2}
-        strong
-        style={{ marginBottom: 0, marginTop: 0, textAlign: "center" }}
-      >
-        Selamat Datang
-      </Title>
-      <Title
-        level={3}
-        style={{ marginBottom: 0, marginTop: 0, textAlign: "center" }}
-      >
-        Di Sistem Administrasi Pelaporan Tagihan
-      </Title>
-      <Title
-        level={3}
-        style={{ marginBottom: 0, marginTop: 0, textAlign: "center" }}
-      >
-        Pelanggan
-      </Title>
-      <Title
-        level={2}
-        strong
-        style={{ marginBottom: 0, marginTop: 0, textAlign: "center" }}
-      >
-        PT. JULIA MULTIMEDIA NUSANTARA
-      </Title>
     </div>
   );
 }

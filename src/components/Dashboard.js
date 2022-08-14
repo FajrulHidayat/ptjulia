@@ -250,7 +250,7 @@ export default function DashboardAdmin(props) {
             <>
               <SubMenu key="sub1" icon={<TeamOutlined />} title="Master Data">
                 <Menu.Item key="/operator/PenanggungJawab">
-                  Data Penanggung Jawab
+                  Data Penanggung Jawab 
                 </Menu.Item>
                 <Menu.Item key="/operator/WilayahKerja">
                   Data Wilayah Kerja
