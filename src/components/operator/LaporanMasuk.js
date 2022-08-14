@@ -1,57 +1,71 @@
-import { Table, Input, Button, Space,Typography } from 'antd';
-import Highlighter from 'react-highlight-words';
-import { SearchOutlined } from '@ant-design/icons';
-import React from 'react';
-import axios from 'axios';
-import { useNavigate,useLocation,Link } from "react-router-dom";
-import moment from "moment"
+import { Table, Input, Button, Space, Typography } from "antd";
+import Highlighter from "react-highlight-words";
+import { SearchOutlined } from "@ant-design/icons";
+import React from "react";
+import axios from "axios";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import moment from "moment";
 
-const {Title} = Typography
+const { Title } = Typography;
 
 class LaporanMasuk extends React.Component {
   state = {
-    searchText: '',
-    searchedColumn: '',
-    data:[]
+    searchText: "",
+    searchedColumn: "",
+    data: [],
   };
 
-componentDidMount(){
-    let newData=[]
-    console.log(this.props.location.state.wilayah);
+  componentDidMount() {
+    let newData = [];
+    // console.log(this.props.location.state);
     axios
-    .get(`/laporan/find?status=Baru`, null, {})
-    .then((res) => {
-    //   console.log(res.data);
-      res.data.result.forEach(element => {
-          const newDa ={}
-          newDa.key=element.id
-          newDa.nama=element.nama
-          newDa.wilayah=element.wilayah
-          newDa.createAt=moment(element.createAt).format("DD-MM-YYYY")
-          newDa.updateAt=moment(element.updateAt).format("DD-MM-YYYY")
-          newDa.status=element.status
+      .get(`/laporan/find?status=Baru`, null, {})
+      .then((res) => {
+        // console.log(res.data);
+        res.data.result.forEach((element) => {
+          // console.log("element", element);
+          // console.log(
+          //   "element date",
+          //   moment(element.createAt).format("DD-MM-YYYY")
+          // );
+          const newDa = {};
+          newDa.key = element.id;
+          newDa.nama = element.nama;
+          newDa.wilayah = element.wilayah;
+          newDa.createAt = moment(element.createdAt).format("DD-MM-YYYY");
+          newDa.updateAt = moment(element.updatedAt).format("DD-MM-YYYY");
+          newDa.status = element.status;
 
-            newData.push(newDa)
+          newData.push(newDa);
         });
-        this.setState({data:newData})
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
+        this.setState({ data: newData });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
-  getColumnSearchProps = dataIndex => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+  getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
       <div style={{ padding: 8 }}>
         <Input
-          ref={node => {
+          ref={(node) => {
             this.searchInput = node;
           }}
           placeholder={`Search ${dataIndex}`}
           value={selectedKeys[0]}
-          onChange={e => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-          onPressEnter={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{ marginBottom: 8, display: 'block' }}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() =>
+            this.handleSearch(selectedKeys, confirm, dataIndex)
+          }
+          style={{ marginBottom: 8, display: "block" }}
         />
         <Space>
           <Button
@@ -63,7 +77,11 @@ componentDidMount(){
           >
             Search
           </Button>
-          <Button onClick={() => this.handleReset(clearFilters)} size="small" style={{ width: 90 }}>
+          <Button
+            onClick={() => this.handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
             Reset
           </Button>
           <Button
@@ -82,23 +100,28 @@ componentDidMount(){
         </Space>
       </div>
     ),
-    filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+    filterIcon: (filtered) => (
+      <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+    ),
     onFilter: (value, record) =>
       record[dataIndex]
-        ? record[dataIndex].toString().toLowerCase().includes(value.toLowerCase())
-        : '',
-    onFilterDropdownVisibleChange: visible => {
+        ? record[dataIndex]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
+        : "",
+    onFilterDropdownVisibleChange: (visible) => {
       if (visible) {
         setTimeout(() => this.searchInput.select(), 100);
       }
     },
-    render: text =>
+    render: (text) =>
       this.state.searchedColumn === dataIndex ? (
         <Highlighter
-          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
           searchWords={[this.state.searchText]}
           autoEscape
-          textToHighlight={text ? text.toString() : ''}
+          textToHighlight={text ? text.toString() : ""}
         />
       ) : (
         text
@@ -113,46 +136,44 @@ componentDidMount(){
     });
   };
 
-  handleReset = clearFilters => {
+  handleReset = (clearFilters) => {
     clearFilters();
-    this.setState({ searchText: '' });
+    this.setState({ searchText: "" });
   };
 
   render() {
     const columns = [
       {
-        title: 'Nama Penanggung Jawab',
-        dataIndex: 'nama',
-        key: 'nama',
-        width: '30%',
-        ...this.getColumnSearchProps('nama'),
+        title: "Nama Penanggung Jawab",
+        dataIndex: "nama",
+        key: "nama",
+        width: "30%",
+        ...this.getColumnSearchProps("nama"),
       },
       {
-        title: 'Wilayah',
-        dataIndex: 'wilayah',
-        key: 'wilayah',
-        width: '20%',
-        ...this.getColumnSearchProps('wilayah'),
+        title: "Wilayah",
+        dataIndex: "wilayah",
+        key: "wilayah",
+        width: "20%",
+        ...this.getColumnSearchProps("wilayah"),
       },
       {
-        title: 'Tanggal Di Unggah',
-        dataIndex: 'createAt',
-        key: 'createAt',
-        ...this.getColumnSearchProps('createAt')
+        title: "Tanggal Di Unggah",
+        dataIndex: "createAt",
+        key: "createAt",
+        ...this.getColumnSearchProps("createAt"),
       },
       {
-        title: 'Tanggal Di Perbaharui',
-        dataIndex: 'updateAt',
-        key: 'updateAt',
-        ...this.getColumnSearchProps('updateAt'),
-        
+        title: "Tanggal Di Perbaharui",
+        dataIndex: "updateAt",
+        key: "updateAt",
+        ...this.getColumnSearchProps("updateAt"),
       },
       {
-        title: 'Status',
-        dataIndex: 'status',
-        key: 'status',
-        ...this.getColumnSearchProps('status'),
-        
+        title: "Status",
+        dataIndex: "status",
+        key: "status",
+        ...this.getColumnSearchProps("status"),
       },
       {
         title: "Aksi",
@@ -165,7 +186,7 @@ componentDidMount(){
               pathname: `/PeriksaLaporan?id=${record.key}`,
             }}
           >
-            {console.log(record)}
+            {/* {console.log(record)} */}
             <Button
               style={{
                 backgroundColor: "#FF4D4F",
@@ -185,14 +206,14 @@ componentDidMount(){
         <Title level={3}>Laporan Masuk</Title>
         <Table columns={columns} dataSource={this.state.data} />
       </div>
-    )
+    );
   }
 }
 
-function WithNavigate(props){
-    let navigate = useNavigate();
-    let location = useLocation()
-    return <LaporanMasuk {...props} navigate={navigate} location={location}/>
+function WithNavigate(props) {
+  let navigate = useNavigate();
+  let location = useLocation();
+  return <LaporanMasuk {...props} navigate={navigate} location={location} />;
 }
 
-export default WithNavigate
+export default WithNavigate;

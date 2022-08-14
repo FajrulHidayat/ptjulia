@@ -15,28 +15,37 @@ export default function MyApp(props) {
   const [IsModalVisible, setIsModalVisible] = useState(false);
   const [IsModalACCVisible, setIsModalACCVisible] = useState(false);
   const [IsModalPajakVisible, setIsModalPajakVisible] = useState(false);
+  const [tempKomen, settempKomen] = useState("");
+  const [ready, setready] = useState(false);
   // console.log(searchParams);
   // function onDocumentLoadSuccess({ numPages }) {
   //   setNumPages(numPages);
   //   setPageNumber(1)
   // }\
-  const getFile = (id) => {
-    axios
+  const getFile = async (id) => {
+    await axios
       .get(`/laporan/file/${id}`, {}, {})
       .then((res) => {
         // console.log(res.data.result[0].file);
         setfile(`http://localhost:9000/file/${res.data.result[0].file}`);
-        if (
+        if (location.pathname === `/PeriksaLaporanRevisi`) {
+          settempKomen(res.data.result[0].koreksi);
+          setkomen(true);
+          console.log("koreksi", res.data.result[0].koreksi);
+          setready(true);
+        } else if (
           res.data.result[0].status === "Revisi" ||
           res.data.result[0].status === "Baru"
         ) {
           setkomen(true);
+          setready(true);
         }
         if (
           res.data.result[0].status === "Setuju" &&
           location.pathname === `/PimpinanPeriksaLaporan`
         ) {
           setkomen(true);
+          setready(true);
         }
       })
       .catch((error) => {
@@ -53,10 +62,14 @@ export default function MyApp(props) {
     // console.log('Success:', values);
   };
   const handleOk = () => {
+    let pengoreksi = "operator";
+    if (location.pathname === `/PimpinanPeriksaLaporan`) {
+      pengoreksi = "pimpinan";
+    }
     axios
       .put(
         `/laporan/koreksi/${searchParams.get("id")}`,
-        { koreksi: komentar },
+        { koreksi: komentar, pengoreksi: pengoreksi },
         {}
       )
       .then((res) => {
@@ -127,10 +140,15 @@ export default function MyApp(props) {
         width={komen ? "70%" : "100%"}
         height="100%"
       ></iframe>
-      {komen && (
+      {komen && ready && (
         <div style={{ width: "30%", height: "100%", float: "right" }}>
           <Form style={{ padding: "16px" }} onFinish={onFinish}>
-            <Form.Item name={"komen"} style={{ heigth: "80%" }}>
+            {console.log("asda", tempKomen)}
+            <Form.Item
+              initialValue={tempKomen}
+              name={"komen"}
+              style={{ heigth: "80%" }}
+            >
               <Input.TextArea
                 style={{ heigth: "100%" }}
                 autoSize={{ minRows: 25, maxRows: 25 }}

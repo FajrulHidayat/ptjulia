@@ -29,7 +29,11 @@ class LaporanRevisi extends React.Component {
           newDa.wilayah = element.wilayah;
           newDa.createAt = moment(element.createAt).format("DD-MM-YYYY");
           newDa.updateAt = moment(element.updateAt).format("DD-MM-YYYY");
-          newDa.status = element.status;
+          if (element.pengoreksi === "pimpinan") {
+            newDa.status = "Revisi Dari Pimpinan";
+          } else {
+            newDa.status = element.status;
+          }
 
           newData.push(newDa);
         });
@@ -178,7 +182,7 @@ class LaporanRevisi extends React.Component {
           <Link
             target="_blank"
             to={{
-              pathname: `/laporan?id=${record.key}&status=Revisi`,
+              pathname: `/PeriksaLaporanRevisi?id=${record.key}`,
             }}
           >
             {console.log(record)}
